@@ -44,4 +44,26 @@ app.post('/api/v1/weather', (req, res) => {
   }
 });
 
+app.get('/api/v1/weather/today', (req, res) => {
+  db.environment.findAll({
+    where: db.sequelize.where(
+        db.sequelize.fn('DATE', db.sequelize.col('createdAt')),
+        '=',
+        db.sequelize.literal('CURRENT_DATE'),
+    ),
+  })
+      .then((data) => {
+        res.send({
+          success: true,
+          message: '',
+          data,
+        });
+      })
+      .catch((err) => res.send({
+        success: false,
+        message: err,
+        data: {},
+      }));
+});
+
 app.listen(config.PORT, () => console.log(`started on port ${config.PORT}`));

@@ -30,7 +30,7 @@ CREATE TABLE public.environments (
     temperature integer NOT NULL,
     humidity integer NOT NULL,
     "soilMoisture" integer NOT NULL,
-    rain boolean NOT NULL,
+    rain integer NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL
 );
 

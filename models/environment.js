@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     temperature: DataTypes.INTEGER,
     humidity: DataTypes.INTEGER,
     soilMoisture: DataTypes.INTEGER,
-    rain: DataTypes.BOOLEAN,
+    rain: DataTypes.INTEGER,
   }, {});
   environment.associate = function(models) {
     // associations can be defined here
