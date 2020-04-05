@@ -1,67 +1,33 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-const db = require('./models/index.js');
 const config = require('./config.js');
+
+const ThinkSpeak = require('./helpers/thinkspeak.js');
+const thinkspeak = new ThinkSpeak('1031832');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('combined'));
 
-app.post('/', (req, res) => {
-  req.send('Under construction');
-});
+// app.get('/', (req, res) => {
+//   res.send('Under construction');
+// });
 
-app.post('/api/v1/weather', (req, res) => {
-  try {
-    const {
-      temperature,
-      humidity,
-      soilMoisture,
-      rain,
-    } = req.body;
-
-    db.environment.create({
-      temperature,
-      humidity,
-      soilMoisture,
-      rain,
-    })
-        .then(() => res.send({
-          success: true,
-          message: '',
-        }))
-        .catch((err) => res.send({
-          success: false,
-          message: err,
-        }));
-  } catch (ex) {
-    res.send({
-      success: false,
-      message: ex.toString(),
-    });
-  }
-});
+app.use(express.static(path.resolve(__dirname, 'ui/build')));
 
 app.get('/api/v1/weather/today', (req, res) => {
-  db.environment.findAll({
-    where: db.sequelize.where(
-        db.sequelize.fn('DATE', db.sequelize.col('createdAt')),
-        '=',
-        db.sequelize.literal('CURRENT_DATE'),
-    ),
-  })
-      .then((data) => {
-        res.send({
-          success: true,
-          message: '',
-          data,
-        });
-      })
+  thinkspeak.getDaily()
+      .then((resp) => res.send({
+        success: true,
+        message: {},
+        data: resp.data,
+      }))
       .catch((err) => res.send({
         success: false,
-        message: err,
+        message: err.toString(),
         data: {},
       }));
 });
