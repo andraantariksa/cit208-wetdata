@@ -1,7 +1,7 @@
 import React from 'react';
 import {Line} from 'react-chartjs-2';
 
-export default class TodayDetail extends React.Component {
+export default class LastNDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,15 +29,6 @@ export default class TodayDetail extends React.Component {
   }
 
   componentDidMount() {
-    // this.data = {
-    //   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    //   datasets: [
-    //     {
-    //       label: 'Rain',
-    //       data: [65, 59, 80, 81, 56, 55, 40]
-    //     }
-    //   ]
-    // };
     const tempData = {
       labels: [],
       datasets: [{
@@ -126,7 +117,7 @@ export default class TodayDetail extends React.Component {
       }],
     };
 
-    fetch('/api/v1/weather/today')
+    fetch('/api/v1/weather/last/' + this.props.number)
         .then((resp) => resp.json())
         .then((data) => {
           const success = data.success;
@@ -138,7 +129,6 @@ export default class TodayDetail extends React.Component {
               tempData.datasets[2].data.push(parseInt(feed.field3));
               tempData.datasets[3].data.push(parseInt(feed.field4));
             });
-            console.log(`set state`, tempData);
             this.setState({
               data: tempData
             });

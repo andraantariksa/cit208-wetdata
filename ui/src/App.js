@@ -4,7 +4,7 @@ import {
   Nav,
   Container,
 } from 'react-bootstrap';
-import TodayDetail from './component/chart/TodayDetail';
+import Home from './page/Home';
 
 function App() {
   return (
@@ -33,8 +33,8 @@ function App() {
           </Navbar.Collapse>
         </Navbar>
       </header>
-      <Container>
-        <TodayDetail />
+      <Container className="mx-auto">
+        <Home />
       </Container>
     </>
   );

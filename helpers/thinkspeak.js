@@ -9,9 +9,19 @@ class ThinkSpeak {
     this.apiUrl = `/channels/${channelID}/`;
   }
 
-  getDaily() {
+  getLast(number) {
     return this.fetch('feeds.json', {
-      average: 'daily',
+      params: {
+        results: number,
+      },
+    });
+  }
+
+  getTodayAverage() {
+    return this.fetch('feeds.json', {
+      params: {
+        average: 'daily',
+      },
     });
   }
 
