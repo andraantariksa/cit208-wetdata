@@ -8,8 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd ui/ && npm install && npm run build"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Andra Antariksa <andra.antariksa@gmail.com> (https://andraantariksa.github.io)",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
